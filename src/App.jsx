@@ -4,20 +4,22 @@ import Navbar from "./Navbar";
 import Main from "./components/Main";
 import AlbumList from "./AlbumsList";
 
+const TEMP = [
+  { "Memories of Summer": null },
+  { "Infinite Dreams": null },
+  { "Serenade of Stars": null },
+  { "Echoes of Time": null },
+  { "Twilight Harmony": null },
+  { "Enchanted Melodies": null },
+  { "Whispers in the Wind": null },
+  { "Dancing in the Rain": null },
+  { "Lost in Paradise": null },
+  { "Golden Moments": null },
+];
+
 function App() {
   const [isCreateAlbum, setIsCreateAlbum] = useState(false);
-  const [albums, setAlbums] = useState([
-    "Memories of Summer",
-    "Infinite Dreams",
-    "Serenade of Stars",
-    "Echoes of Time",
-    "Twilight Harmony",
-    "Enchanted Melodies",
-    "Whispers in the Wind",
-    "Dancing in the Rain",
-    "Lost in Paradise",
-    "Golden Moments",
-  ]);
+  const [albums, setAlbums] = useState(TEMP);
 
   const addAlbum = (album) => {
     let isAvailable = false;

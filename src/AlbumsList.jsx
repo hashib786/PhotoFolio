@@ -29,7 +29,7 @@ function AlbumList({ albums, setIsCreateAlbum, isCreateAlbum }) {
                 className="album-image"
               />
             </div>
-            <p className="album-name">{album}</p>
+            <p className="album-name">{Object.keys(album)[0]}</p>
           </div>
         ))}
       </div>
