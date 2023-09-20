@@ -2,7 +2,7 @@ import { useState } from "react";
 import Button from "./components/Button";
 
 // eslint-disable-next-line react/prop-types
-function AlbumForm() {
+function AlbumForm({ addAlbum }) {
   const [albumName, setAlbumName] = useState("");
 
   const handleInputChange = (event) => {
@@ -11,7 +11,8 @@ function AlbumForm() {
 
   const handleCreateAlbum = (e) => {
     e.preventDefault();
-    // Clear the input field after creating the album
+    if (!albumName.trim()) return;
+    addAlbum(albumName);
     setAlbumName("");
   };
 

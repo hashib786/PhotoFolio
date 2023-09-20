@@ -19,11 +19,18 @@ function App() {
     "Golden Moments",
   ]);
 
+  const addAlbum = (album) => {
+    let isAvailable = false;
+    albums.forEach((ele) => (ele === album ? (isAvailable = true) : ""));
+    if (isAvailable) return;
+    setAlbums((prev) => [...prev, album]);
+  };
+
   return (
     <>
       <Navbar />
       <Main>
-        {isCreateAlbum && <AlbumForm />}
+        {isCreateAlbum && <AlbumForm addAlbum={addAlbum} />}
         <AlbumList
           albums={albums}
           setIsCreateAlbum={setIsCreateAlbum}
