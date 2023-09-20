@@ -1,3 +1,4 @@
+/* essential css -------------> */
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -12,11 +13,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-}
-
-body.dark {
-  color: rgb(255, 255, 255);
-  background-color: #242424;
 }
 
 *,
@@ -36,6 +32,50 @@ a {
 a:hover {
   color: #535bf2;
 }
+
+/* Reusable Css */
+/* Button */
+/* Button Styles */
+.button {
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+  outline: none;
+  padding: 10px 20px;
+  transition: all 0.3s;
+}
+
+.fill {
+  background-color: #333;
+  color: #ffffff;
+}
+
+.outline {
+  background-color: transparent;
+  color: #333;
+  border: 2px solid #333;
+}
+
+.small {
+  font-size: 12px;
+  padding: 8px 16px;
+}
+
+.medium {
+  font-size: 16px;
+  padding: 10px 20px;
+}
+
+/* Hover styles */
+.button:hover {
+  transform: scale(.9);
+}
+
+.button:active {
+  transform: scale(1.1);
+}
+
 
 /* Navbar -------------------------> */
 
