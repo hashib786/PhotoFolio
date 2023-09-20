@@ -101,3 +101,69 @@ a:hover {
   font-weight: bold;
   color: #fff;
 }
+
+/* Album Form -------------> */
+/* AlbumForm Styles */
+.album-form-container {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  max-width: 475px;
+  margin-inline: auto;
+}
+
+.form-header {
+  margin-left: 0.4rem;
+  margin-bottom: 20px;
+}
+
+.form-header h2 {
+  font-size: 26px;
+}
+
+.album-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.album-input {
+  padding: 10px 19px;
+  border: 2px solid #ccc;
+  border-radius: 26px;
+  font-size: 16px;
+  width: 300px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  width: 100%;
+  color: #333;
+  outline: none;
+}
+
+.album-input:focus,
+.album-input:active {
+  border: 2px solid #07f;
+}
+
+.button-container {
+  margin-top: 1.2rem;
+  display: flex;
+  gap: 1.2rem;
+  width: 100%;
+}
+
+/* Override Button component styles for this form */
+.album-form .button {
+  width: 48%;
+  /* Adjust the width as needed */
+  margin: 0;
+}
+
+/* main section */
+.main__section {
+  max-width: calc(1024px + 1.2rem);
+  margin-inline: auto;
+  padding-inline: 1.2rem;
+  padding-block: 1.5rem;
+}
