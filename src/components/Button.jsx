@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 
-function Button({ variant, size, text, textColor, bgColor, onClick }) {
+// eslint-disable-next-line react/prop-types
+function Button({ variant, size, text, textColor, bgColor, onClick, styled }) {
   const classes = `button ${variant} ${size}`;
   const styles = {
     color: textColor,
@@ -10,7 +11,7 @@ function Button({ variant, size, text, textColor, bgColor, onClick }) {
   return (
     <button
       className={classes}
-      style={variant === "outline" ? {} : styles}
+      style={variant === "outline" ? styled || {} : styles}
       onClick={onClick}
     >
       {text}
