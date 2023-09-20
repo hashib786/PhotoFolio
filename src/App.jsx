@@ -20,6 +20,7 @@ const TEMP = [
 function App() {
   const [isCreateAlbum, setIsCreateAlbum] = useState(false);
   const [albums, setAlbums] = useState(TEMP);
+  const [currentAlbum, setCurrentAlbum] = useState(null);
 
   const addAlbum = (album) => {
     let isAvailable = false;
@@ -32,12 +33,17 @@ function App() {
     <>
       <Navbar />
       <Main>
-        {isCreateAlbum && <AlbumForm addAlbum={addAlbum} />}
-        <AlbumList
-          albums={albums}
-          setIsCreateAlbum={setIsCreateAlbum}
-          isCreateAlbum={isCreateAlbum}
-        />
+        {!currentAlbum ? (
+          <>
+            {isCreateAlbum && <AlbumForm addAlbum={addAlbum} />}
+            <AlbumList
+              albums={albums}
+              setIsCreateAlbum={setIsCreateAlbum}
+              isCreateAlbum={isCreateAlbum}
+              setCurrentAlbum={setCurrentAlbum}
+            />
+          </>
+        ) : null}
       </Main>
     </>
   );

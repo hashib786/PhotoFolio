@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Button from "./components/Button";
 
-// eslint-disable-next-line react/prop-types
 function AlbumForm({ addAlbum }) {
   const [albumName, setAlbumName] = useState("");
 

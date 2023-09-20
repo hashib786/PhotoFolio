@@ -1,7 +1,11 @@
 import Button from "./components/Button";
 
-// eslint-disable-next-line react/prop-types
-function AlbumList({ albums, setIsCreateAlbum, isCreateAlbum }) {
+function AlbumList({
+  albums,
+  setIsCreateAlbum,
+  isCreateAlbum,
+  setCurrentAlbum,
+}) {
   return (
     <div className="album-list-container">
       <div className="header">
@@ -21,7 +25,11 @@ function AlbumList({ albums, setIsCreateAlbum, isCreateAlbum }) {
       <div className="album-list">
         {/* eslint-disable-next-line react/prop-types */}
         {albums?.map((album, index) => (
-          <div className="album-card" key={index}>
+          <div
+            className="album-card"
+            key={index}
+            onClick={() => setCurrentAlbum(album) || setIsCreateAlbum(false)}
+          >
             <div className="album-image-container">
               <img
                 src="https://stalwart-wisp-382f3c.netlify.app/assets/photos.png"

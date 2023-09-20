@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 
-// eslint-disable-next-line react/prop-types
 function Button({ variant, size, text, textColor, bgColor, onClick, styled }) {
   const classes = `button ${variant} ${size}`;
   const styles = {
