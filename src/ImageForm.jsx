@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "./components/Button";
 
-function ImageForm({ addAlbum }) {
+function ImageForm({ addImage }) {
   const [imageName, setImageName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
 
@@ -14,10 +14,8 @@ function ImageForm({ addAlbum }) {
 
   const handleCreateAlbum = (e) => {
     e.preventDefault();
-    if (!albumName.trim()) return;
-    console.log(albumName);
-    addAlbum(albumName);
-    setAlbumName("");
+    addImage({ imageName, imageUrl, id: Date.now() });
+    setImageName("") || setImageUrl("");
   };
 
   return (

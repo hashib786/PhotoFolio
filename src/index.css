@@ -102,6 +102,12 @@ a:hover {
   color: #fff;
 }
 
+.full__logo {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
 /* Album Form -------------> */
 /* AlbumForm Styles */
 .album-form-container {

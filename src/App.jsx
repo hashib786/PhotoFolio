@@ -3,19 +3,19 @@ import AlbumForm from "./AlbumForm";
 import Navbar from "./Navbar";
 import Main from "./components/Main";
 import AlbumList from "./AlbumsList";
-import ImageForm from "./ImageForm";
+import ImageList from "./ImagesList";
 
 const TEMP = [
-  { "Memories of Summer": null },
-  { "Infinite Dreams": null },
-  { "Serenade of Stars": null },
-  { "Echoes of Time": null },
-  { "Twilight Harmony": null },
-  { "Enchanted Melodies": null },
-  { "Whispers in the Wind": null },
-  { "Dancing in the Rain": null },
-  { "Lost in Paradise": null },
-  { "Golden Moments": null },
+  { "Memories of Summer": [] },
+  { "Infinite Dreams": [] },
+  { "Serenade of Stars": [] },
+  { "Echoes of Time": [] },
+  { "Twilight Harmony": [] },
+  { "Enchanted Melodies": [] },
+  { "Whispers in the Wind": [] },
+  { "Dancing in the Rain": [] },
+  { "Lost in Paradise": [] },
+  { "Golden Moments": [] },
 ];
 
 function App() {
@@ -32,9 +32,13 @@ function App() {
     setAlbums((prev) => [...prev, { [album]: null }]);
   };
 
+  const resetCurrentAlbums = () => {
+    setCurrentAlbum(null);
+  };
+
   return (
     <>
-      <Navbar />
+      <Navbar resetCurrentAlbums={resetCurrentAlbums} />
       <Main>
         {!currentAlbum ? (
           <>
@@ -47,7 +51,7 @@ function App() {
             />
           </>
         ) : (
-          <ImageForm />
+          <ImageList currentAlbum={currentAlbum} setAlbums={setAlbums} />
         )}
       </Main>
     </>
