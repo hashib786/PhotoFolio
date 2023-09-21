@@ -32,7 +32,7 @@ function AlbumList({
           >
             <div className="album-image-container">
               <img
-                src="https://stalwart-wisp-382f3c.netlify.app/assets/photos.png"
+                src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTjRj5HId5sEpk2aR7gOqjFAhSeGmQd6OhAcEpImXlV8EqDpIRa"
                 alt="Album Cover"
                 className="album-image"
               />

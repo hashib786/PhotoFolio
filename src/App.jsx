@@ -23,10 +23,12 @@ function App() {
   const [currentAlbum, setCurrentAlbum] = useState(null);
 
   const addAlbum = (album) => {
+    console.log(album);
     let isAvailable = false;
     albums.forEach((ele) => (ele === album ? (isAvailable = true) : ""));
     if (isAvailable) return;
-    setAlbums((prev) => [...prev, album]);
+    console.log(album);
+    setAlbums((prev) => [...prev, { [album]: null }]);
   };
 
   return (

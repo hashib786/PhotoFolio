@@ -11,6 +11,7 @@ function AlbumForm({ addAlbum }) {
   const handleCreateAlbum = (e) => {
     e.preventDefault();
     if (!albumName.trim()) return;
+    console.log(albumName);
     addAlbum(albumName);
     setAlbumName("");
   };
@@ -27,6 +28,9 @@ function AlbumForm({ addAlbum }) {
           value={albumName}
           onChange={handleInputChange}
           className="album-input"
+          minLength={5}
+          maxLength={25}
+          required={true}
         />
         <div className="button-container">
           <Button
