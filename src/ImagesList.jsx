@@ -53,12 +53,12 @@ function ImageList({ currentAlbum, setAlbums }) {
               >
                 <div className="album-image-container">
                   <img
-                    src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTjRj5HId5sEpk2aR7gOqjFAhSeGmQd6OhAcEpImXlV8EqDpIRa"
+                    src={album.imageUrl}
                     alt="Album Cover"
                     className="album-image"
                   />
                 </div>
-                <p className="album-name">{Object.keys(album)[0]}</p>
+                <p className="album-name">{album.imageName}</p>
               </div>
             ))}
         </div>

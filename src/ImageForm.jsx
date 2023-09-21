@@ -14,8 +14,16 @@ function ImageForm({ addImage }) {
 
   const handleCreateAlbum = (e) => {
     e.preventDefault();
-    addImage({ imageName, imageUrl, id: Date.now() });
-    setImageName("") || setImageUrl("");
+
+    const img = new Image();
+    img.src = imageUrl;
+
+    img.onload = () => {
+      addImage({ imageName, imageUrl, id: Date.now() });
+      setImageName("") || setImageUrl("");
+    };
+
+    img.onerror = () => {};
   };
 
   return (
