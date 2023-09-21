@@ -3,6 +3,7 @@ import AlbumForm from "./AlbumForm";
 import Navbar from "./Navbar";
 import Main from "./components/Main";
 import AlbumList from "./AlbumsList";
+import ImageForm from "./ImageForm";
 
 const TEMP = [
   { "Memories of Summer": null },
@@ -45,7 +46,9 @@ function App() {
               setCurrentAlbum={setCurrentAlbum}
             />
           </>
-        ) : null}
+        ) : (
+          <ImageForm />
+        )}
       </Main>
     </>
   );
