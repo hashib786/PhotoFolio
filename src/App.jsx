@@ -51,7 +51,11 @@ function App() {
             />
           </>
         ) : (
-          <ImageList currentAlbum={currentAlbum} setAlbums={setAlbums} />
+          <ImageList
+            currentAlbum={currentAlbum}
+            setAlbums={setAlbums}
+            resetCurrentAlbums={resetCurrentAlbums}
+          />
         )}
       </Main>
     </>

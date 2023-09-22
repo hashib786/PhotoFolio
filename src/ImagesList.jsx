@@ -1,8 +1,9 @@
 import { useState } from "react";
 import Button from "./components/Button";
 import ImageForm from "./ImageForm";
+import RoundButton from "./components/RoundButton";
 
-function ImageList({ currentAlbum, setAlbums }) {
+function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
   const albumKey = Object.keys(currentAlbum)[0];
   const [isImageCreate, setIsImageCreate] = useState(false);
   const [images, setImages] = useState(currentAlbum[albumKey] || []);
@@ -28,7 +29,17 @@ function ImageList({ currentAlbum, setAlbums }) {
       {isImageCreate && <ImageForm addImage={addImage} />}
       <div className="album-list-container">
         <div className="header">
-          <h2>{albumKey}</h2>
+          <div
+            className="left"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "1.2rem",
+            }}
+          >
+            <RoundButton text={"←"} onClick={resetCurrentAlbums} />
+            <h2>{albumKey}</h2>
+          </div>
           <Button
             variant="outline"
             size="small"

@@ -10,7 +10,7 @@ function Button({ variant, size, text, textColor, bgColor, onClick, styled }) {
   return (
     <button
       className={classes}
-      style={variant === "outline" ? styled || {} : styles}
+      style={variant === "outline" ? styled || {} : { ...styles, ...styled }}
       onClick={onClick}
     >
       {text}
