@@ -29,28 +29,23 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
       {isImageCreate && <ImageForm addImage={addImage} />}
       <div className="album-list-container">
         <div className="header">
-          <div
-            className="left"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "1.2rem",
-            }}
-          >
+          <div className="header__left">
             <RoundButton text={"←"} onClick={resetCurrentAlbums} />
             <h2>{albumKey}</h2>
           </div>
-          <Button
-            variant="outline"
-            size="small"
-            text={isImageCreate ? "Cancel" : "Add Image"}
-            onClick={() => setIsImageCreate((prev) => !prev)}
-            styled={{
-              color: isImageCreate ? "red" : "#07f",
-              backgroundColor: isImageCreate ? "#fcefef" : "#e6f7ff",
-              border: `2px solid ${isImageCreate ? "red" : "#07f"}`,
-            }}
-          />
+          <div className="header__right">
+            <Button
+              variant="outline"
+              size="small"
+              text={isImageCreate ? "Cancel" : "Add Image"}
+              onClick={() => setIsImageCreate((prev) => !prev)}
+              styled={{
+                color: isImageCreate ? "red" : "#07f",
+                backgroundColor: isImageCreate ? "#fcefef" : "#e6f7ff",
+                border: `2px solid ${isImageCreate ? "red" : "#07f"}`,
+              }}
+            />
+          </div>
         </div>
         <div className="album-list">
           {Boolean(images.length) &&

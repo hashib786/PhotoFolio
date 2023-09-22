@@ -280,3 +280,10 @@ a:hover {
 .round__btn:hover {
   transform: scale(0.9);
 }
+
+.header__left,
+.header__right {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
