@@ -40,7 +40,7 @@ function App() {
   }, []);
 
   const addAlbum = async (album) => {
-    const toastId = toast.loading("Creating Rewiev...");
+    const toastId = toast.loading("Creating Album...");
     let isAvailable = false;
     albums.forEach((ele) => (ele === album ? (isAvailable = true) : ""));
     if (isAvailable) {

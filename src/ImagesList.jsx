@@ -6,6 +6,7 @@ import Carousel from "./carousel";
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import db from "./firebase/DB";
 import Loading from "./components/Loading";
+import toast from "react-hot-toast";
 
 function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
   const albumKey = Object.keys(currentAlbum)[0];
@@ -29,23 +30,30 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
 
   const addImage = async (data) => {
     // Add a new document with a generated id.
-    const docRef = await addDoc(collection(db, "images"), {
-      album: albumKey,
-      ...data,
-    });
-    console.log("Document written with ID: ", docRef.id);
-    setImages((prev) => {
-      setAlbums((prevAlbum) => {
-        prevAlbum.forEach((ele, i) => {
-          if (Object.keys(ele)[0] === albumKey) {
-            prevAlbum[i][albumKey] = [...prev, { id: docRef.id, ...data }];
-          }
-        });
-        return prevAlbum;
+    const toastId = toast.loading("Creating Rewiev...");
+    try {
+      const docRef = await addDoc(collection(db, "images"), {
+        album: albumKey,
+        ...data,
       });
+      setImages((prev) => {
+        setAlbums((prevAlbum) => {
+          prevAlbum.forEach((ele, i) => {
+            if (Object.keys(ele)[0] === albumKey) {
+              prevAlbum[i][albumKey] = [...prev, { id: docRef.id, ...data }];
+            }
+          });
+          return prevAlbum;
+        });
 
-      return [...prev, { id: docRef.id, ...data }];
-    });
+        return [...prev, { id: docRef.id, ...data }];
+      });
+      toast.success("Image Added successfully");
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      toast.dismiss(toastId);
+    }
   };
 
   return loading ? (
