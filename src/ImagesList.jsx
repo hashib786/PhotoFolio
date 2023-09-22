@@ -8,6 +8,8 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
   const albumKey = Object.keys(currentAlbum)[0];
   const [isImageCreate, setIsImageCreate] = useState(false);
   const [images, setImages] = useState(currentAlbum[albumKey] || []);
+  const [index, setIndex] = useState(0);
+  const [isActive, setIsActive] = useState(false);
 
   const addImage = (data) => {
     setImages((prev) => {
@@ -27,7 +29,9 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
 
   return (
     <>
-      <Carousel />
+      {isActive && (
+        <Carousel images={images} index={index} setIsActive={setIsActive} />
+      )}
       {isImageCreate && <ImageForm addImage={addImage} />}
       <div className="album-list-container">
         <div className="header">
@@ -51,13 +55,11 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
         </div>
         <div className="album-list">
           {Boolean(images.length) &&
-            images?.map((album, index) => (
+            images?.map((album, i) => (
               <div
                 className="album-card"
-                key={index}
-                onClick={() =>
-                  setCurrentAlbum(album) || setisImageCreate(false)
-                }
+                key={i}
+                onClick={() => setIndex(i) || setIsActive(true)}
               >
                 <div className="album-image-container">
                   <img
