@@ -9,19 +9,6 @@ import db from "./firebase/DB";
 import { collection, doc, getDocs, setDoc } from "firebase/firestore";
 import toast, { Toaster } from "react-hot-toast";
 
-const TEMP = [
-  { "Memories of Summer": [] },
-  { "Infinite Dreams": [] },
-  { "Serenade of Stars": [] },
-  { "Echoes of Time": [] },
-  { "Twilight Harmony": [] },
-  { "Enchanted Melodies": [] },
-  { "Whispers in the Wind": [] },
-  { "Dancing in the Rain": [] },
-  { "Lost in Paradise": [] },
-  { "Golden Moments": [] },
-];
-
 function App() {
   const [isCreateAlbum, setIsCreateAlbum] = useState(false);
   const [albums, setAlbums] = useState([]);
@@ -29,7 +16,7 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Getting Data
+    // Getting Data from Firestore
     (async () => {
       const data = await getDocs(collection(db, "albums"));
       let arr = [];
@@ -42,19 +29,23 @@ function App() {
   const addAlbum = async (album) => {
     const toastId = toast.loading("Creating Album...");
     let isAvailable = false;
+
+    // Check if the album name is already available in the local state
     albums.forEach((ele) => (ele === album ? (isAvailable = true) : ""));
+
     if (isAvailable) {
       toast.error(album + " is already available");
       toast.dismiss(toastId);
       return;
     }
 
-    // Setting Data
+    // Set Data in Firestore
     try {
       await setDoc(doc(db, "albums", album), {
         [album]: album,
       });
 
+      // Update the local state with the newly created album
       setAlbums((prev) => [...prev, { [album]: null }]);
       toast.success("album created successfully");
     } catch (error) {
@@ -70,16 +61,17 @@ function App() {
 
   return (
     <>
+      {/* Toaster for displaying toast messages */}
       <Toaster position="top-right" reverseOrder={false} />
       <Navbar resetCurrentAlbums={resetCurrentAlbums} />
       {loading ? (
         <Loading />
       ) : (
         <>
-          <Toaster position="top-right" reverseOrder={false} />
           <Main>
             {!currentAlbum ? (
               <>
+                {/* Render AlbumForm when creating an album */}
                 {isCreateAlbum && <AlbumForm addAlbum={addAlbum} />}
                 <AlbumList
                   albums={albums}

@@ -11,7 +11,6 @@ function AlbumForm({ addAlbum }) {
   const handleCreateAlbum = (e) => {
     e.preventDefault();
     if (!albumName.trim()) return;
-    console.log(albumName);
     addAlbum(albumName);
     setAlbumName("");
   };
