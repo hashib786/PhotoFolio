@@ -23,7 +23,9 @@ const Carousel = ({ setIsActive, index, setIndex, images }) => {
       {index !== 0 && (
         <RoundButton text="←" className={"absolute"} onClick={decrease} />
       )}
-      <RoundButton text="→" className={"absolute right"} onClick={increase} />
+      {index < images.length - 1 && (
+        <RoundButton text="→" className={"absolute right"} onClick={increase} />
+      )}
       <img
         src={currentImage.imageUrl}
         alt="hello"

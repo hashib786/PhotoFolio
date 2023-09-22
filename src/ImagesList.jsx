@@ -19,7 +19,6 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
             prevAlbum[i][albumKey] = [...prev, data];
           }
         });
-        console.log(prevAlbum);
         return prevAlbum;
       });
 
