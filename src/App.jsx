@@ -7,7 +7,7 @@ import ImageList from "./ImagesList";
 import Loading from "./components/Loading";
 import db from "./firebase/DB";
 import { collection, doc, getDocs, setDoc } from "firebase/firestore";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 const TEMP = [
   { "Memories of Summer": [] },
@@ -40,15 +40,28 @@ function App() {
   }, []);
 
   const addAlbum = async (album) => {
+    const toastId = toast.loading("Creating Rewiev...");
     let isAvailable = false;
     albums.forEach((ele) => (ele === album ? (isAvailable = true) : ""));
-    if (isAvailable) return;
+    if (isAvailable) {
+      toast.error(album + " is already available");
+      toast.dismiss(toastId);
+      return;
+    }
 
     // Setting Data
-    const data = await setDoc(doc(db, "albums", album), {
-      [album]: album,
-    });
-    setAlbums((prev) => [...prev, { [album]: null }]);
+    try {
+      await setDoc(doc(db, "albums", album), {
+        [album]: album,
+      });
+
+      setAlbums((prev) => [...prev, { [album]: null }]);
+      toast.success("album created successfully");
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      toast.dismiss(toastId);
+    }
   };
 
   const resetCurrentAlbums = () => {
