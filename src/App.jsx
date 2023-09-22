@@ -6,7 +6,7 @@ import AlbumList from "./AlbumsList";
 import ImageList from "./ImagesList";
 import Loading from "./components/Loading";
 import db from "./firebase/DB";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, doc, getDocs, setDoc } from "firebase/firestore";
 
 const TEMP = [
   { "Memories of Summer": [] },
@@ -38,12 +38,15 @@ function App() {
     })();
   }, []);
 
-  const addAlbum = (album) => {
-    console.log(album);
+  const addAlbum = async (album) => {
     let isAvailable = false;
     albums.forEach((ele) => (ele === album ? (isAvailable = true) : ""));
     if (isAvailable) return;
-    console.log(album);
+
+    // Setting Data
+    const data = await setDoc(doc(db, "albums", album), {
+      [album]: album,
+    });
     setAlbums((prev) => [...prev, { [album]: null }]);
   };
 
