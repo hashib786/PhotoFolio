@@ -2,6 +2,7 @@ import { useState } from "react";
 import Button from "./components/Button";
 import ImageForm from "./ImageForm";
 import RoundButton from "./components/RoundButton";
+import Carousel from "./carousel";
 
 function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
   const albumKey = Object.keys(currentAlbum)[0];
@@ -26,6 +27,7 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
 
   return (
     <>
+      <Carousel />
       {isImageCreate && <ImageForm addImage={addImage} />}
       <div className="album-list-container">
         <div className="header">

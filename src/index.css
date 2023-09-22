@@ -287,3 +287,39 @@ a:hover {
   align-items: center;
   gap: 1.2rem;
 }
+
+/* Carousel */
+.overly {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(2px);
+  padding: 2rem;
+  background-color: #96939344;
+}
+
+.overly__header {
+  width: 80%;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.carousel__img {
+  max-width: 80%;
+  display: block;
+  margin-inline: auto;
+  margin-top: 1.2rem;
+}
+
+.absolute {
+  position: absolute;
+  top: 50%;
+  left: 2%;
+}
+
+.absolute.right {
+  left: unset;
+  right: 2%;
+}
