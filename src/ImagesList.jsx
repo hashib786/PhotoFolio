@@ -57,6 +57,12 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
     }
   };
 
+  const deleteImage = (id) => {
+    setImages((prev) => {
+      return prev.filter((ele) => ele.id !== id);
+    });
+  };
+
   return loading ? (
     <Loading />
   ) : (
@@ -98,6 +104,7 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
                 album={album}
                 setIndex={setIndex}
                 setIsActive={setIsActive}
+                deleteImage={deleteImage}
                 i={i}
               />
             ))}

@@ -296,6 +296,7 @@ a:hover {
   backdrop-filter: blur(2px);
   padding: 2rem;
   background-color: #96939344;
+  z-index: 10;
 }
 
 .overly__header {

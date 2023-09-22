@@ -1,7 +1,25 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
+import db from "../firebase/DB";
+import { deleteDoc, doc } from "firebase/firestore";
 
-const ImageCard = ({ album, setIndex, setIsActive, i }) => {
+const ImageCard = ({ album, setIndex, setIsActive, i, deleteImage }) => {
   const [isActive, setIsActivated] = useState(false);
+
+  const handleDelete = async (e) => {
+    e.stopPropagation();
+    const toastId = toast.loading("Deleting image");
+    try {
+      await deleteDoc(doc(db, "images", album.id));
+      deleteImage(album.id);
+      toast.success("Deleted Successfully");
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      toast.dismiss(toastId);
+    }
+  };
+
   return (
     <div
       className="album-card"
@@ -16,6 +34,7 @@ const ImageCard = ({ album, setIndex, setIsActive, i }) => {
         alt="edit"
       />
       <img
+        onClick={handleDelete}
         className={`essential delete ${isActive ? "" : "hide"}`}
         src="https://stalwart-wisp-382f3c.netlify.app/assets/trash-bin.png"
         alt="delete"
