@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "./components/Button";
 import ImageForm from "./ImageForm";
 import RoundButton from "./components/RoundButton";
 import Carousel from "./carousel";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import db from "./firebase/DB";
+import Loading from "./components/Loading";
 
 function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
   const albumKey = Object.keys(currentAlbum)[0];
@@ -10,6 +13,19 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
   const [images, setImages] = useState(currentAlbum[albumKey] || []);
   const [index, setIndex] = useState(0);
   const [isActive, setIsActive] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Getting Data
+    (async () => {
+      const q = query(collection(db, "images"), where("album", "==", albumKey));
+      const querySnapshot = await getDocs(q);
+      let arr = [];
+      querySnapshot.forEach((doc) => arr.push({ id: doc.id, ...doc.data() }));
+      setImages(arr);
+      setLoading(false);
+    })();
+  }, []);
 
   const addImage = (data) => {
     setImages((prev) => {
@@ -26,7 +42,9 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
     });
   };
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <>
       {isActive && (
         <Carousel
