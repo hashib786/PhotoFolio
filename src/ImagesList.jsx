@@ -99,11 +99,12 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
   const updateImage = async ({ imageName, imageUrl, toastId, edit }) => {
     // Update an image document in Firebase Firestore
     try {
+      console.log(imageName, imageUrl, toastId, edit);
       const washingtonRef = doc(db, "images", edit.id);
       await updateDoc(washingtonRef, {
         imageName,
         imageUrl,
-        album: edit.album,
+        album: albumKey,
       });
       setImages((prev) => {
         return prev.map((ele) =>

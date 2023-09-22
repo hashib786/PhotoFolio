@@ -290,7 +290,7 @@ a:hover {
 }
 
 /* Carousel */
-.overly {
+.overlay {
   position: fixed;
   inset: 0;
   backdrop-filter: blur(2px);
@@ -299,7 +299,7 @@ a:hover {
   z-index: 10;
 }
 
-.overly__header {
+.overlay__header {
   width: 80%;
   margin-inline: auto;
   display: flex;

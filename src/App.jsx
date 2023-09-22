@@ -46,7 +46,7 @@ function App() {
       });
 
       // Update the local state with the newly created album
-      setAlbums((prev) => [...prev, { [album]: null }]);
+      setAlbums((prev) => [...prev, { [album]: [] }]);
       toast.success("album created successfully");
     } catch (error) {
       toast.error(error.message);
