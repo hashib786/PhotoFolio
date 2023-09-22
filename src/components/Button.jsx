@@ -1,7 +1,10 @@
 import PropTypes from "prop-types";
 
 function Button({ variant, size, text, textColor, bgColor, onClick, styled }) {
+  // Generate the CSS classes based on props
   const classes = `button ${variant} ${size}`;
+
+  // Define the inline styles for the button
   const styles = {
     color: textColor,
     backgroundColor: bgColor,
@@ -18,6 +21,7 @@ function Button({ variant, size, text, textColor, bgColor, onClick, styled }) {
   );
 }
 
+// PropTypes for prop validation
 Button.propTypes = {
   variant: PropTypes.oneOf(["fill", "outline"]),
   size: PropTypes.oneOf(["small", "medium"]),
@@ -27,6 +31,7 @@ Button.propTypes = {
   onClick: PropTypes.func,
 };
 
+// Default props for the button component
 Button.defaultProps = {
   variant: "fill",
   size: "medium",

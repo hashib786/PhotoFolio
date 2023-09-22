@@ -9,7 +9,9 @@ function AlbumList({
   return (
     <div className="album-list-container">
       <div className="header">
+        {/* Header displaying "Your Albums" */}
         <h2>Your Albums</h2>
+        {/* Button to toggle between "Add Album" and "Cancel" */}
         <Button
           variant="outline"
           size="small"
@@ -23,7 +25,6 @@ function AlbumList({
         />
       </div>
       <div className="album-list">
-        {/* eslint-disable-next-line react/prop-types */}
         {albums?.map((album, index) => (
           <div
             className="album-card"
@@ -37,6 +38,7 @@ function AlbumList({
                 className="album-image"
               />
             </div>
+            {/* Display the album name */}
             <p className="album-name">{Object.keys(album)[0]}</p>
           </div>
         ))}

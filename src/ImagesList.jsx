@@ -28,7 +28,7 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    // Getting Data
+    // Getting Data from Firebase Firestore
     (async () => {
       const q = query(collection(db, "images"), where("album", "==", albumKey));
       const querySnapshot = await getDocs(q);
@@ -48,6 +48,7 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
   }, []);
 
   useEffect(() => {
+    // Filter images based on search input
     if (currentAlbum[albumKey]) {
       let arr = currentAlbum[albumKey].filter((element) =>
         element.imageName.toLowerCase().startsWith(search.toLowerCase())
@@ -57,7 +58,7 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
   }, [search]);
 
   const addImage = async (data) => {
-    // Add a new document with a generated id.
+    // Add a new image document to Firebase Firestore
     if (data.error) {
       toast.dismiss(data.toastId);
       toast.error("Image Url Is not correct");
@@ -89,14 +90,15 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
   };
 
   const deleteImage = (id) => {
+    // Delete an image from the state
     setImages((prev) => {
       return prev.filter((ele) => ele.id !== id);
     });
   };
 
   const updateImage = async ({ imageName, imageUrl, toastId, edit }) => {
+    // Update an image document in Firebase Firestore
     try {
-      // update Data
       const washingtonRef = doc(db, "images", edit.id);
       await updateDoc(washingtonRef, {
         imageName,
@@ -120,6 +122,7 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
   };
 
   const handleAddCancel = () => {
+    // Handle cancel button for adding/editing images
     isImageCreate
       ? setIsImageCreate((prev) => !prev)
       : setEdit({}) || setIsImageCreate((prev) => !prev);
@@ -129,6 +132,7 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
   };
 
   const handleSearch = (e) => {
+    // Handle input change for search
     setSearch(e.target.value);
   };
 

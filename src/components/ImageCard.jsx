@@ -11,13 +11,17 @@ const ImageCard = ({
   deleteImage,
   setEdit,
 }) => {
+  // State to track whether edit and delete icons should be visible on hover
   const [isActive, setIsActivated] = useState(false);
 
+  // Handle the delete action for the image
   const handleDelete = async (e) => {
     e.stopPropagation();
     const toastId = toast.loading("Deleting image");
     try {
+      // Delete the image document from Firestore
       await deleteDoc(doc(db, "images", album.id));
+      // Remove the image from the UI
       deleteImage(album.id);
       toast.success("Deleted Successfully");
     } catch (error) {
@@ -27,8 +31,10 @@ const ImageCard = ({
     }
   };
 
+  // Handle the edit action for the image
   const handleEdit = (e) => {
     e.stopPropagation();
+    // Set the selected image for editing
     setEdit(album);
   };
 
@@ -40,12 +46,14 @@ const ImageCard = ({
       onMouseEnter={() => setIsActivated(true)}
       onMouseLeave={() => setIsActivated(false)}
     >
+      {/* Edit icon */}
       <img
         onClick={handleEdit}
         className={`essential edit ${isActive ? "" : "hide"}`}
         src="https://stalwart-wisp-382f3c.netlify.app/assets/edit.png"
         alt="edit"
       />
+      {/* Delete icon */}
       <img
         onClick={handleDelete}
         className={`essential delete ${isActive ? "" : "hide"}`}

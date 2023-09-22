@@ -2,16 +2,25 @@ import { useState } from "react";
 import Button from "./components/Button";
 
 function AlbumForm({ addAlbum }) {
+  // State to store the album name entered by the user
   const [albumName, setAlbumName] = useState("");
 
+  // Function to handle input changes and update the albumName state
   const handleInputChange = (event) => {
     setAlbumName(event.target.value);
   };
 
+  // Function to handle album creation when the form is submitted
   const handleCreateAlbum = (e) => {
     e.preventDefault();
+
+    // Trim the album name and check if it's empty
     if (!albumName.trim()) return;
+
+    // Call the addAlbum function to create a new album with the entered name
     addAlbum(albumName);
+
+    // Clear the input field after creating the album
     setAlbumName("");
   };
 
@@ -32,6 +41,7 @@ function AlbumForm({ addAlbum }) {
           required={true}
         />
         <div className="button-container">
+          {/* Clear button to reset the input field */}
           <Button
             variant="fill"
             size="medium"
@@ -40,6 +50,7 @@ function AlbumForm({ addAlbum }) {
             bgColor="#ff1300"
             onClick={() => setAlbumName("")}
           />
+          {/* Create button to submit the form and create the album */}
           <Button
             variant="fill"
             size="medium"
