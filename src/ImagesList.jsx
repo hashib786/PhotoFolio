@@ -25,6 +25,7 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
   const [isActive, setIsActive] = useState(false);
   const [loading, setLoading] = useState(true);
   const [edit, setEdit] = useState({});
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     // Getting Data
@@ -34,9 +35,26 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
       let arr = [];
       querySnapshot.forEach((doc) => arr.push({ id: doc.id, ...doc.data() }));
       setImages(arr);
+      setAlbums((prevAlbum) => {
+        prevAlbum.forEach((ele, i) => {
+          if (Object.keys(ele)[0] === albumKey) {
+            prevAlbum[i][albumKey] = arr;
+          }
+        });
+        return prevAlbum;
+      });
       setLoading(false);
     })();
   }, []);
+
+  useEffect(() => {
+    if (currentAlbum[albumKey]) {
+      let arr = currentAlbum[albumKey].filter((element) =>
+        element.imageName.toLowerCase().startsWith(search.toLowerCase())
+      );
+      setImages(arr);
+    }
+  }, [search]);
 
   const addImage = async (data) => {
     // Add a new document with a generated id.
@@ -110,6 +128,10 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
       : "";
   };
 
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
+
   return loading ? (
     <Loading />
   ) : (
@@ -132,6 +154,13 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
             <h2>{albumKey}</h2>
           </div>
           <div className="header__right">
+            <input
+              type="text"
+              className="searchBar"
+              placeholder="Search..."
+              onChange={handleSearch}
+              value={search}
+            />
             <Button
               variant="outline"
               size="small"

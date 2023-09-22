@@ -358,3 +358,13 @@ a:hover {
 .essential.delete {
   right: 0px;
 }
+
+.searchBar {
+  outline: none;
+  background-color: transparent;
+  color: black;
+  font-size: 1.2rem;
+  border-radius: 1.2rem;
+  border: 1px solid;
+  padding: 0.4rem 0.9rem;
+}
