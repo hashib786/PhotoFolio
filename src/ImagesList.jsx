@@ -31,7 +31,11 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
 
   const addImage = async (data) => {
     // Add a new document with a generated id.
-    const toastId = toast.loading("Creating Rewiev...");
+    if (data.error) {
+      toast.dismiss(data.toastId);
+      toast.error("Image Url Is not correct");
+      return;
+    }
     try {
       const docRef = await addDoc(collection(db, "images"), {
         album: albumKey,
@@ -53,7 +57,7 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
     } catch (error) {
       toast.error(error.message);
     } finally {
-      toast.dismiss(toastId);
+      toast.dismiss(data.toastId);
     }
   };
 

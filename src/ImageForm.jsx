@@ -1,9 +1,10 @@
 import { useState } from "react";
 import Button from "./components/Button";
+import toast from "react-hot-toast";
 
-function ImageForm({ addImage }) {
-  const [imageName, setImageName] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+function ImageForm({ addImage, name, url }) {
+  const [imageName, setImageName] = useState(name);
+  const [imageUrl, setImageUrl] = useState(url);
 
   const handleInputChange = (event) => {
     setImageName(event.target.value);
@@ -14,16 +15,19 @@ function ImageForm({ addImage }) {
 
   const handleCreateAlbum = (e) => {
     e.preventDefault();
+    const toastId = toast.loading("Creating Image...");
 
     const img = new Image();
     img.src = imageUrl;
 
     img.onload = () => {
-      addImage({ imageName, imageUrl });
+      addImage({ imageName, imageUrl, toastId });
       setImageName("") || setImageUrl("");
     };
 
-    img.onerror = () => {};
+    img.onerror = () => {
+      addImage({ imageName, imageUrl, error: true, toastId });
+    };
   };
 
   return (
@@ -62,9 +66,9 @@ function ImageForm({ addImage }) {
           <Button
             variant="fill"
             size="medium"
-            text="Add"
+            text={`${url ? "Edit" : "Add"}`}
             textColor="#fff"
-            bgColor="#07f"
+            bgColor={`${url ? "#2bda08" : "#07f"}`}
             type="submit"
           />
         </div>
