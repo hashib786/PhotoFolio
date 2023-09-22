@@ -7,6 +7,7 @@ import ImageList from "./ImagesList";
 import Loading from "./components/Loading";
 import db from "./firebase/DB";
 import { collection, doc, getDocs, setDoc } from "firebase/firestore";
+import { Toaster } from "react-hot-toast";
 
 const TEMP = [
   { "Memories of Summer": [] },
@@ -56,29 +57,33 @@ function App() {
 
   return (
     <>
+      <Toaster position="top-right" reverseOrder={false} />
       <Navbar resetCurrentAlbums={resetCurrentAlbums} />
       {loading ? (
         <Loading />
       ) : (
-        <Main>
-          {!currentAlbum ? (
-            <>
-              {isCreateAlbum && <AlbumForm addAlbum={addAlbum} />}
-              <AlbumList
-                albums={albums}
-                setIsCreateAlbum={setIsCreateAlbum}
-                isCreateAlbum={isCreateAlbum}
-                setCurrentAlbum={setCurrentAlbum}
+        <>
+          <Toaster position="top-right" reverseOrder={false} />
+          <Main>
+            {!currentAlbum ? (
+              <>
+                {isCreateAlbum && <AlbumForm addAlbum={addAlbum} />}
+                <AlbumList
+                  albums={albums}
+                  setIsCreateAlbum={setIsCreateAlbum}
+                  isCreateAlbum={isCreateAlbum}
+                  setCurrentAlbum={setCurrentAlbum}
+                />
+              </>
+            ) : (
+              <ImageList
+                currentAlbum={currentAlbum}
+                setAlbums={setAlbums}
+                resetCurrentAlbums={resetCurrentAlbums}
               />
-            </>
-          ) : (
-            <ImageList
-              currentAlbum={currentAlbum}
-              setAlbums={setAlbums}
-              resetCurrentAlbums={resetCurrentAlbums}
-            />
-          )}
-        </Main>
+            )}
+          </Main>
+        </>
       )}
     </>
   );
