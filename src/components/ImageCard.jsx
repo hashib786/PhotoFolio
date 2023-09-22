@@ -3,7 +3,14 @@ import toast from "react-hot-toast";
 import db from "../firebase/DB";
 import { deleteDoc, doc } from "firebase/firestore";
 
-const ImageCard = ({ album, setIndex, setIsActive, i, deleteImage }) => {
+const ImageCard = ({
+  album,
+  setIndex,
+  setIsActive,
+  i,
+  deleteImage,
+  setEdit,
+}) => {
   const [isActive, setIsActivated] = useState(false);
 
   const handleDelete = async (e) => {
@@ -20,6 +27,11 @@ const ImageCard = ({ album, setIndex, setIsActive, i, deleteImage }) => {
     }
   };
 
+  const handleEdit = (e) => {
+    e.stopPropagation();
+    setEdit(album);
+  };
+
   return (
     <div
       className="album-card"
@@ -29,6 +41,7 @@ const ImageCard = ({ album, setIndex, setIsActive, i, deleteImage }) => {
       onMouseLeave={() => setIsActivated(false)}
     >
       <img
+        onClick={handleEdit}
         className={`essential edit ${isActive ? "" : "hide"}`}
         src="https://stalwart-wisp-382f3c.netlify.app/assets/edit.png"
         alt="edit"

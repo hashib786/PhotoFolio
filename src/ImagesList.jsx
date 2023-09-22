@@ -16,6 +16,7 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
   const [index, setIndex] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [edit, setEdit] = useState({});
 
   useEffect(() => {
     // Getting Data
@@ -67,6 +68,15 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
     });
   };
 
+  const handleAddCancel = () => {
+    isImageCreate
+      ? setIsImageCreate((prev) => !prev)
+      : setEdit({}) || setIsImageCreate((prev) => !prev);
+    isImageCreate || edit.imageUrl
+      ? setEdit({}) || setIsImageCreate(false)
+      : "";
+  };
+
   return loading ? (
     <Loading />
   ) : (
@@ -79,7 +89,9 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
           setIndex={setIndex}
         />
       )}
-      {isImageCreate && <ImageForm addImage={addImage} />}
+      {(isImageCreate || edit.imageUrl) && (
+        <ImageForm addImage={addImage} edit={edit} />
+      )}
       <div className="album-list-container">
         <div className="header">
           <div className="header__left">
@@ -90,12 +102,15 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
             <Button
               variant="outline"
               size="small"
-              text={isImageCreate ? "Cancel" : "Add Image"}
-              onClick={() => setIsImageCreate((prev) => !prev)}
+              text={isImageCreate || edit.imageUrl ? "Cancel" : "Add Image"}
+              onClick={handleAddCancel}
               styled={{
-                color: isImageCreate ? "red" : "#07f",
-                backgroundColor: isImageCreate ? "#fcefef" : "#e6f7ff",
-                border: `2px solid ${isImageCreate ? "red" : "#07f"}`,
+                color: isImageCreate || edit.imageUrl ? "red" : "#07f",
+                backgroundColor:
+                  isImageCreate || edit.imageUrl ? "#fcefef" : "#e6f7ff",
+                border: `2px solid ${
+                  isImageCreate || edit.imageUrl ? "red" : "#07f"
+                }`,
               }}
             />
           </div>
@@ -109,6 +124,7 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
                 setIndex={setIndex}
                 setIsActive={setIsActive}
                 deleteImage={deleteImage}
+                setEdit={setEdit}
                 i={i}
               />
             ))}

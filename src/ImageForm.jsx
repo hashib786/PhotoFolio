@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "./components/Button";
 import toast from "react-hot-toast";
 
-function ImageForm({ addImage, name, url }) {
-  const [imageName, setImageName] = useState(name);
-  const [imageUrl, setImageUrl] = useState(url);
+function ImageForm({ addImage, edit }) {
+  const [imageName, setImageName] = useState(edit.imageName);
+  const [imageUrl, setImageUrl] = useState(edit.imageUrl);
+
+  useEffect(() => {
+    setImageName(edit.imageName);
+    setImageUrl(edit.imageUrl);
+  }, [edit]);
 
   const handleInputChange = (event) => {
     setImageName(event.target.value);
@@ -66,9 +71,9 @@ function ImageForm({ addImage, name, url }) {
           <Button
             variant="fill"
             size="medium"
-            text={`${url ? "Edit" : "Add"}`}
+            text={`${edit.imageUrl ? "Edit" : "Add"}`}
             textColor="#fff"
-            bgColor={`${url ? "#2bda08" : "#07f"}`}
+            bgColor={`${edit.imageUrl ? "#2bda08" : "#07f"}`}
             type="submit"
           />
         </div>
