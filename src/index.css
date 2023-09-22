@@ -229,6 +229,7 @@ a:hover {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   transition: border-color 0.3s;
   cursor: pointer;
+  position: relative;
 }
 
 .album-card:hover {
@@ -332,4 +333,27 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.hide {
+  display: none;
+}
+
+.essential {
+  position: absolute;
+  top: -10px;
+  width: 35px;
+  transition: transform .3s ease-in-out;
+}
+
+.essential:hover {
+  transform: scale(0.9);
+}
+
+.essential.edit {
+  right: 40px;
+}
+
+.essential.delete {
+  right: 0px;
 }

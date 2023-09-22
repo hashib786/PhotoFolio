@@ -7,6 +7,7 @@ import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import db from "./firebase/DB";
 import Loading from "./components/Loading";
 import toast from "react-hot-toast";
+import ImageCard from "./components/ImageCard";
 
 function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
   const albumKey = Object.keys(currentAlbum)[0];
@@ -92,20 +93,13 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
         <div className="album-list">
           {Boolean(images.length) &&
             images?.map((album, i) => (
-              <div
-                className="album-card"
-                key={i}
-                onClick={() => setIndex(i) || setIsActive(true)}
-              >
-                <div className="album-image-container">
-                  <img
-                    src={album.imageUrl}
-                    alt="Album Cover"
-                    className="album-image"
-                  />
-                </div>
-                <p className="album-name">{album.imageName}</p>
-              </div>
+              <ImageCard
+                key={album.id}
+                album={album}
+                setIndex={setIndex}
+                setIsActive={setIsActive}
+                i={i}
+              />
             ))}
         </div>
         {!Boolean(images.length) && (
