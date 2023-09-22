@@ -3,7 +3,7 @@ import Button from "./components/Button";
 import ImageForm from "./ImageForm";
 import RoundButton from "./components/RoundButton";
 import Carousel from "./carousel";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import db from "./firebase/DB";
 import Loading from "./components/Loading";
 
@@ -27,18 +27,24 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
     })();
   }, []);
 
-  const addImage = (data) => {
+  const addImage = async (data) => {
+    // Add a new document with a generated id.
+    const docRef = await addDoc(collection(db, "images"), {
+      album: albumKey,
+      ...data,
+    });
+    console.log("Document written with ID: ", docRef.id);
     setImages((prev) => {
       setAlbums((prevAlbum) => {
         prevAlbum.forEach((ele, i) => {
           if (Object.keys(ele)[0] === albumKey) {
-            prevAlbum[i][albumKey] = [...prev, data];
+            prevAlbum[i][albumKey] = [...prev, { id: docRef.id, ...data }];
           }
         });
         return prevAlbum;
       });
 
-      return [...prev, data];
+      return [...prev, { id: docRef.id, ...data }];
     });
   };
 

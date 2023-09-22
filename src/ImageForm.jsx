@@ -19,7 +19,7 @@ function ImageForm({ addImage }) {
     img.src = imageUrl;
 
     img.onload = () => {
-      addImage({ imageName, imageUrl, id: Date.now() });
+      addImage({ imageName, imageUrl });
       setImageName("") || setImageUrl("");
     };
 
