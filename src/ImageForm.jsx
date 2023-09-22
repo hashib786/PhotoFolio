@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Button from "./components/Button";
 import toast from "react-hot-toast";
 
-function ImageForm({ addImage, edit }) {
+function ImageForm({ addImage, edit, updateImage }) {
   const [imageName, setImageName] = useState(edit.imageName);
   const [imageUrl, setImageUrl] = useState(edit.imageUrl);
 
@@ -20,12 +20,18 @@ function ImageForm({ addImage, edit }) {
 
   const handleCreateAlbum = (e) => {
     e.preventDefault();
-    const toastId = toast.loading("Creating Image...");
+    const toastId = toast.loading(
+      `${edit.imageUrl ? "Updating" : "Creating"} Image...`
+    );
 
     const img = new Image();
     img.src = imageUrl;
 
     img.onload = () => {
+      if (edit.imageUrl) {
+        updateImage({ imageName, imageUrl, toastId, edit });
+        return;
+      }
       addImage({ imageName, imageUrl, toastId });
       setImageName("") || setImageUrl("");
     };

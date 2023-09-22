@@ -3,7 +3,15 @@ import Button from "./components/Button";
 import ImageForm from "./ImageForm";
 import RoundButton from "./components/RoundButton";
 import Carousel from "./carousel";
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import db from "./firebase/DB";
 import Loading from "./components/Loading";
 import toast from "react-hot-toast";
@@ -68,6 +76,31 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
     });
   };
 
+  const updateImage = async ({ imageName, imageUrl, toastId, edit }) => {
+    try {
+      // update Data
+      const washingtonRef = doc(db, "images", edit.id);
+      await updateDoc(washingtonRef, {
+        imageName,
+        imageUrl,
+        album: edit.album,
+      });
+      setImages((prev) => {
+        return prev.map((ele) =>
+          ele.id === edit.id
+            ? { imageName, imageUrl, id: edit.id, album: edit.album }
+            : ele
+        );
+      });
+      handleAddCancel();
+      toast.success("Image Updated Successfully");
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      toast.dismiss(toastId);
+    }
+  };
+
   const handleAddCancel = () => {
     isImageCreate
       ? setIsImageCreate((prev) => !prev)
@@ -90,7 +123,7 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
         />
       )}
       {(isImageCreate || edit.imageUrl) && (
-        <ImageForm addImage={addImage} edit={edit} />
+        <ImageForm addImage={addImage} edit={edit} updateImage={updateImage} />
       )}
       <div className="album-list-container">
         <div className="header">
