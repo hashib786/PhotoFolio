@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AlbumForm from "./AlbumForm";
 import Navbar from "./Navbar";
 import Main from "./components/Main";
 import AlbumList from "./AlbumsList";
 import ImageList from "./ImagesList";
+import Loading from "./components/Loading";
+import db from "./firebase/DB";
+import { collection, getDocs } from "firebase/firestore";
 
 const TEMP = [
   { "Memories of Summer": [] },
@@ -20,8 +23,20 @@ const TEMP = [
 
 function App() {
   const [isCreateAlbum, setIsCreateAlbum] = useState(false);
-  const [albums, setAlbums] = useState(TEMP);
+  const [albums, setAlbums] = useState([]);
   const [currentAlbum, setCurrentAlbum] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Getting Data
+    (async () => {
+      const data = await getDocs(collection(db, "albums"));
+      let arr = [];
+      data.forEach((doc) => arr.push({ [doc.id]: [] }));
+      setAlbums(arr);
+      setLoading(false);
+    })();
+  }, []);
 
   const addAlbum = (album) => {
     console.log(album);
@@ -39,25 +54,29 @@ function App() {
   return (
     <>
       <Navbar resetCurrentAlbums={resetCurrentAlbums} />
-      <Main>
-        {!currentAlbum ? (
-          <>
-            {isCreateAlbum && <AlbumForm addAlbum={addAlbum} />}
-            <AlbumList
-              albums={albums}
-              setIsCreateAlbum={setIsCreateAlbum}
-              isCreateAlbum={isCreateAlbum}
-              setCurrentAlbum={setCurrentAlbum}
+      {loading ? (
+        <Loading />
+      ) : (
+        <Main>
+          {!currentAlbum ? (
+            <>
+              {isCreateAlbum && <AlbumForm addAlbum={addAlbum} />}
+              <AlbumList
+                albums={albums}
+                setIsCreateAlbum={setIsCreateAlbum}
+                isCreateAlbum={isCreateAlbum}
+                setCurrentAlbum={setCurrentAlbum}
+              />
+            </>
+          ) : (
+            <ImageList
+              currentAlbum={currentAlbum}
+              setAlbums={setAlbums}
+              resetCurrentAlbums={resetCurrentAlbums}
             />
-          </>
-        ) : (
-          <ImageList
-            currentAlbum={currentAlbum}
-            setAlbums={setAlbums}
-            resetCurrentAlbums={resetCurrentAlbums}
-          />
-        )}
-      </Main>
+          )}
+        </Main>
+      )}
     </>
   );
 }
