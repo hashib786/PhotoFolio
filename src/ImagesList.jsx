@@ -30,7 +30,12 @@ function ImageList({ currentAlbum, setAlbums, resetCurrentAlbums }) {
   return (
     <>
       {isActive && (
-        <Carousel images={images} index={index} setIsActive={setIsActive} />
+        <Carousel
+          images={images}
+          index={index}
+          setIsActive={setIsActive}
+          setIndex={setIndex}
+        />
       )}
       {isImageCreate && <ImageForm addImage={addImage} />}
       <div className="album-list-container">
