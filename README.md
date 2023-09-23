@@ -2,6 +2,13 @@
 
 PhotoFolio is a web-based photo album management application that allows users to create, organize, and view photo albums. It provides a user-friendly interface for adding, editing, and deleting images within albums.
 
+## Screenshots
+
+![Home Page](screenshots/home.png)
+![Images Page](screenshots/image.png)
+![Update Page](screenshots/update.png)
+![Carousel Page](screenshots/carousel.png)
+
 ## Features
 
 - Create and manage multiple photo albums.
