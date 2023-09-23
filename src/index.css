@@ -191,6 +191,8 @@ a:hover {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 1.2rem;
 }
 
 .header h2 {
@@ -367,4 +369,29 @@ a:hover {
   border-radius: 1.2rem;
   border: 1px solid;
   padding: 0.4rem 0.9rem;
+}
+
+/* Media Query */
+@media only screen and (max-width: 728px) {
+  .header__right {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media only screen and (max-width: 472px) {
+  .searchBar {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.5rem;
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  .header__right {
+    flex-wrap: wrap;
+  }
+
+  .header h2 {
+    font-size: 15px;
+  }
 }
